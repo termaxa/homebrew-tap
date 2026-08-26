@@ -15,6 +15,10 @@ jobs:
         os: [macos-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
+      # ubuntu-latest does NOT have brew on PATH (measured: exit 127).
+      # Homebrew's own setup action fixes that on Linux and is a no-op
+      # where brew already works.
+      - uses: Homebrew/actions/setup-homebrew@master
       # brew >=4.6.4 rejects installing formulae from local paths
       # ("Homebrew requires formulae to be in a tap"). So: tap this repo,
       # then overlay the CHECKED-OUT formula over the tapped copy, so the
