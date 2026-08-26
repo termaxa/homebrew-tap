@@ -1,0 +1,21 @@
+name: formula
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  install:
+    name: brew install / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install from formula
+        run: brew install --formula ./Formula/termaxa.rb
+      - name: Verify it runs
+        run: |
+          termaxa --version
+          termaxa check "rm -rf /tmp/x" || true
