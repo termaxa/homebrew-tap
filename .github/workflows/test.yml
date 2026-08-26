@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
   pull_request:
+env:
+  HOMEBREW_NO_AUTO_UPDATE: "1"
 jobs:
   install:
     name: brew install / ${{ matrix.os }}
@@ -13,8 +15,16 @@ jobs:
         os: [macos-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
-      - name: Install from formula
-        run: brew install --formula ./Formula/termaxa.rb
+      # brew >=4.6.4 rejects installing formulae from local paths
+      # ("Homebrew requires formulae to be in a tap"). So: tap this repo,
+      # then overlay the CHECKED-OUT formula over the tapped copy, so the
+      # run tests the commit under test rather than whatever main holds.
+      - name: Tap and overlay
+        run: |
+          brew tap termaxa/tap
+          cp Formula/termaxa.rb "$(brew --repository termaxa/tap)/Formula/termaxa.rb"
+      - name: Install exactly as a user would
+        run: brew install termaxa/tap/termaxa
       - name: Verify it runs
         run: |
           termaxa --version
