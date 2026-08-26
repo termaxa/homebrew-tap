@@ -19,14 +19,9 @@ jobs:
       # Homebrew's own setup action fixes that on Linux and is a no-op
       # where brew already works.
       - uses: Homebrew/actions/setup-homebrew@master
-      # brew >=4.6.4 rejects installing formulae from local paths
-      # ("Homebrew requires formulae to be in a tap"). So: tap this repo,
-      # then overlay the CHECKED-OUT formula over the tapped copy, so the
-      # run tests the commit under test rather than whatever main holds.
-      - name: Tap and overlay
-        run: |
-          brew tap termaxa/tap
-          cp Formula/termaxa.rb "$(brew --repository termaxa/tap)/Formula/termaxa.rb"
+      # setup-homebrew detects a tap repo and makes THIS CHECKOUT the tap
+      # (measured: an explicit overlay cp failed src==dst on both OS), so
+      # every run — including PRs — tests its own commit. Just install.
       - name: Install exactly as a user would
         run: brew install termaxa/tap/termaxa
       - name: Verify it runs
