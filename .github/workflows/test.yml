@@ -18,7 +18,7 @@ jobs:
       # ubuntu-latest does NOT have brew on PATH (measured: exit 127).
       # Homebrew's own setup action fixes that on Linux and is a no-op
       # where brew already works.
-      - uses: Homebrew/actions/setup-homebrew@master
+      - uses: Homebrew/actions/setup-homebrew@main
       # setup-homebrew detects a tap repo and makes THIS CHECKOUT the tap
       # (measured: an explicit overlay cp failed src==dst on both OS), so
       # every run — including PRs — tests its own commit. Just install.
