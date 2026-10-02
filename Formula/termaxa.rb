@@ -1,22 +1,22 @@
 class Termaxa < Formula
   desc "Cooperative gate for the shell commands AI coding agents run"
   homepage "https://termaxa.com"
-  version "0.19.6"
+  version "0.20.0"
   license any_of: ["MIT", "Apache-2.0"]
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/termaxa/termaxa/releases/download/v0.19.6/termaxa-macos-arm64"
-      sha256 "acfc7c8190187668c2a909ba14efd4332d81eb32f22ff3957e332af90a5eb7c5"
+      url "https://github.com/termaxa/termaxa/releases/download/v0.20.0/termaxa-macos-arm64"
+      sha256 "64bd9226ca69cb3907a157402a746f075550702c8465f6b39c5af87bfe927198"
     else
-      url "https://github.com/termaxa/termaxa/releases/download/v0.19.6/termaxa-macos-x86_64"
-      sha256 "9ddcd8caa52e427f9e77e88afb4cb0d965f4dfa35c30c88c28c6660cba62e191"
+      url "https://github.com/termaxa/termaxa/releases/download/v0.20.0/termaxa-macos-x86_64"
+      sha256 "5869c0ab2c0d32527d14fa0f9391f035fbd88a06fa153cf9f8894cba0e7b4992"
     end
   end
 
   on_linux do
-    url "https://github.com/termaxa/termaxa/releases/download/v0.19.6/termaxa-linux-x86_64"
-    sha256 "bcea19648d131715e5504ce5a04d7c7b876c9abaa0c1f212759aa6d34d50cd06"
+    url "https://github.com/termaxa/termaxa/releases/download/v0.20.0/termaxa-linux-x86_64"
+    sha256 "922a9d3a0a957cf92930a1d9488b53ea66b6ec8fb430464a1ff8e7e541379918"
   end
 
   def install
